@@ -21,4 +21,4 @@ jobs:
       with:
         python-version: 3.9
     - name: Install dependencies
-      run: python main.py
+      run: python gibit.py
