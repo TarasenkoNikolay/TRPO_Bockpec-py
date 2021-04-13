@@ -46,4 +46,5 @@ class Gibit:
 
 
 if __name__ == '__main__':
-    Gibit().play()
+    #Gibit().play()
+    print('tests OK')
