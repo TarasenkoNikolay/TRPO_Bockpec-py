@@ -1,50 +1,72 @@
 import random
-import os
 
 
 class Gibit:
-    man = '-@--<--<'
+    gbt_full = '----@--<--<=='
 
-    def __init__(self):
-        self.load_words()
+    def __init__(self, word=None):
+        lf word is None:
+           words = []
+           with open('words.txt') as f:
+             words.append(f.readline())
+           self.word =random.choice(words)
+        else:
+            self.word = word
         self.user_chars = []
-
-    def load_words(self):
-        self.words = []
-        with open('words.txt') as f:
-            self.words.append(f.readline())
-        self.word = random.choice(self.words)
-
-    def show_state(self):
-        show_chars = [el if el in self.user_chars else '_' for el in self.word]
-        print(show_chars)
-
-    def play(self):
-        start = ''
-        loose_count = 0
-        i = 0
-
-        while 1:
-            self.show_state()
-            print(start)
-            c = input('your char: ')
-            c_i = self.word[i]
-            self.user_chars.append(c)
-            if c == c_i:
-                print('ok!')
-                i += 1
-                continue
-
-            if loose_count < len(self.man):
-                start += self.man[loose_count]
-                loose_count += 1
+        self.gbt_per_char = round(len(self.gbt_full) / len(self.word))                                  
+        self.is_win = False
+        self.is_wasted = False
+        
+        self.step = 0
+        self.gibit = ''
+        
+    def get_state(self):
+        return [el if el self.user_chars else '_' for el in self.word]
+    
+    def play(self, user_char):
+        if self.is_win or self.is_wasted:
+            return
+        
+        right = self.word[self.step] == user_char
+        if not right:
+            self.gibit +=
+self.gbt_full[len(self.gibit):len(self.gibit) + self.gbt_per_char]               
+        else:
+            self.user_chars.append:(user_char)
+                
+        self.step +=1
+        state = self.get_state()
+        
+        if self.step == len(self.word):
+            if '_' in state;
+                self.is_wasted = True
             else:
-                print('you loose')
+                self.is win = True
                 return
+        if '_' not in state:
+            self.is_win = True
+                return
+            
+        return self.gibit, state
 
-
-
-
+def game():
+    gibit = Gibit()
+    while 1:
+        user_char = input(f'write {gibit.step} char of word')
+        result =gibit.play(user_char)
+        if not result:
+            if gibit.is_win:
+                print(f'You win!!! Word is: {"".join(gibit.get_state())}')
+            if gibit.is_wasted:
+                print(f'\t{gibit.gbt_full}')
+                print('Game over!')
+            break
+        else:
+            gbt, state = result
+            print(f'\t{gbt}\n\t{state}')
+                      
 if __name__ == '__main__':
-    Gibit().play()
-    #print('tests OK')
+    game()                      
+  
+
+   
